@@ -1,0 +1,193 @@
+@import "tailwindcss";
+
+/* ─── Design tokens ─────────────────────────────────────────────────
+ * Three colors, nothing else. Tailwind's default palette is switched off,
+ * so any palette color class generates no CSS.
+ * `src/lib/design-tokens.test.ts` fails the build on stray hex/rgb/gradients.
+ */
+@theme {
+  --color-*: initial;
+  --color-bg: #0b0b0b;
+  --color-fg: #f2f2f0;
+  --color-surface: #242424;
+
+  --font-*: initial;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-inter-tight), var(--font-inter), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-pixel: var(--font-silkscreen), var(--font-jetbrains), monospace;
+
+  /* Pixel animation system: every keyframe runs on steps(), never a smooth fade. */
+  --animate-blink: blink 1s steps(1, end) infinite;
+  --animate-pixel-wipe: pixel-wipe 420ms steps(8, end) both;
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  /* Content enters in discrete vertical slices (project pages, previews). */
+  @keyframes pixel-wipe {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+}
+
+/* Keyframes used from inline styles by the pixel components (kept outside @theme so they always ship). */
+/* A block flashes on, then off (PixelReveal). */
+@keyframes pixel-flash {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  75%,
+  100% {
+    opacity: 0;
+  }
+}
+/* A block snaps into place (PixelMark). */
+@keyframes pixel-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ─── Base ──────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    color-scheme: dark;
+    background: var(--color-bg);
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    overflow-x: clip;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-fg);
+    color: var(--color-bg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-fg);
+    outline-offset: 3px;
+  }
+
+  [id] {
+    scroll-margin-top: 4rem;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ─── Components ────────────────────────────────────────────────── */
+@layer components {
+  /* Short technical label: monospace, uppercase. */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* Decorative pixel-type label. Only for a few words, never for body copy. */
+  .pixel-label {
+    font-family: var(--font-pixel);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* Square, bordered surface used by the approved Skills / Credentials / Experience layouts. */
+  .panel {
+    position: relative;
+    border: 1px solid var(--color-surface);
+    background: var(--color-bg);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--color-surface);
+    padding: 0.15rem 0.55rem;
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  /*
+   * Pixel hover indicator: a square that grows in discrete steps when its
+   * `.group` is hovered or focused, or when marked active.
+   */
+  .pixel-indicator {
+    display: inline-block;
+    flex-shrink: 0;
+    height: 0.625rem;
+    width: 0;
+    margin-right: 0;
+    background: var(--color-fg);
+    transition:
+      width 160ms steps(4, end),
+      margin-right 160ms steps(4, end);
+  }
+  .group:hover .pixel-indicator,
+  .group:focus-visible .pixel-indicator,
+  .pixel-indicator[data-active="true"] {
+    width: 1.25rem;
+    margin-right: 0.875rem;
+  }
+
+  .sr-only-focusable:not(:focus) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+/* Inverted block: the system's strongest emphasis. A utility so it works with variants (hover:inverse). */
+@utility inverse {
+  background-color: var(--color-fg);
+  color: var(--color-bg);
+}
+
+/* ─── Motion preferences ────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

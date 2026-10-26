@@ -1,0 +1,3 @@
+# Keep line endings consistent (LF) regardless of the OS that commits.
+* text=auto eol=lf
+*.png binary

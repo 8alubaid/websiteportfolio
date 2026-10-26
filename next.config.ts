@@ -16,6 +16,8 @@ const nextConfig: NextConfig = {
   env: { NEXT_PUBLIC_BASE_PATH: basePath },
   // No Cache Components: a static export has no request-time rendering to cache,
   // and its route handlers (robots, sitemap, OG image) need `dynamic = "force-static"`.
+  // next/image without the optimizer (there is no server on GitHub Pages).
+  images: { unoptimized: true },
   devIndicators: false,
   turbopack: {
     rules: {

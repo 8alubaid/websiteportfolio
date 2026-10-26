@@ -129,7 +129,7 @@ function BlockView({ block, run }: { block: Block; run: Run }) {
               <span className="shrink-0 font-light" aria-hidden="true">
                 {block.bullet ?? "-"}
               </span>
-              <span className="min-w-0 break-words">
+              <span className="min-w-0 whitespace-pre-wrap break-words">
                 <Spans spans={item} run={run} />
               </span>
             </li>

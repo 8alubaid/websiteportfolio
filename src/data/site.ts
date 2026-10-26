@@ -20,6 +20,7 @@ export const ogImage = { url: "/og.png", width: 1200, height: 630, alt: `${profi
 export const sections = [
   { id: "about", label: "About" },
   { id: "projects", label: "Projects" },
+  { id: "case-study", label: "Case Study" },
   { id: "experience", label: "Experience" },
   { id: "skills", label: "Skills" },
   { id: "certifications", label: "Education & Certifications" },

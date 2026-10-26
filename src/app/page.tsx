@@ -9,9 +9,11 @@ import { Experience } from "@/components/portfolio/Experience";
 import { Skills } from "@/components/portfolio/Skills";
 import { Certifications } from "@/components/portfolio/Certifications";
 import { Contact } from "@/components/portfolio/Contact";
+import { CaseStudyTeaser } from "@/components/portfolio/CaseStudy";
 
 const copy: Partial<Record<SectionId, string>> = {
   projects: "Each project has a plain-language overview and an engineering deep dive.",
+  "case-study": "Strong vs weak prompts: what changed when I gave Claude detailed briefs instead of short requests.",
   experience: "Education, training, certifications, and project milestones, each labelled by type. Newest first.",
   skills: "Tools and platforms I've used in real projects, grouped by area. No proficiency scores.",
   certifications: "Degrees and certifications. Only completed credentials are shown as earned.",
@@ -24,6 +26,7 @@ const bodies: Record<SectionId, React.ReactNode> = {
       <ProjectIndex />
     </Suspense>
   ),
+  "case-study": <CaseStudyTeaser />,
   experience: <Experience />,
   skills: <Skills />,
   certifications: <Certifications />,

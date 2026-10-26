@@ -3,6 +3,7 @@
  * autocomplete, and suggestions pick it up automatically.
  */
 import { getProject, isSectorId, profile, projects, resumeUrl, sectors, skillGroups } from "@/data";
+import { pairs } from "@/data/case-study";
 import type { Block, Command, CommandResult, Span } from "./types";
 import { HOME, canonicalPath, completePath, displayPath, getNode, listDirectory, projectAt, resolvePath } from "./filesystem";
 import {
@@ -14,6 +15,7 @@ import {
   projectListView,
   projectView,
   resumeView,
+  caseStudyView,
   skillsView,
   whoamiView,
 } from "./views";
@@ -39,6 +41,9 @@ const destinations: Record<string, string> = {
   education: "/#certifications",
   certifications: "/#certifications",
   contact: "/#contact",
+  "case-study": "/case-study/",
+  compare: "/compare/",
+  design: "/compare/",
 };
 
 function externalDestinations(): Record<string, string> {
@@ -174,6 +179,21 @@ export const commands: Command[] = [
       return href
         ? { blocks, effects: [{ type: "navigate", href, external: true }], announce: "Opening résumé" }
         : ok(blocks, "Résumé not yet published");
+    },
+  },
+  {
+    name: "case-study",
+    aliases: ["prompts", "compare", "casestudy"],
+    group: "portfolio",
+    summary: "Compare strong vs weak prompts",
+    usage: "case-study [round]",
+    details: ["With no argument, shows the numbers, the rounds, and the takeaways. With a round name, shows both prompts in full."],
+    examples: ["case-study", `case-study ${pairs[0].id}`],
+    complete: (index) => (index === 0 ? pairs.map((p) => p.id) : []),
+    run: ({ args }) => {
+      const blocks = caseStudyView(args[0]);
+      if (!blocks) return error(`case-study: no round named "${args[0]}". Rounds: ${pairs.map((p) => p.id).join(", ")}`);
+      return ok(blocks, args[0] ? `Showing case study round ${args[0]}` : "Showing case study");
     },
   },
   {
@@ -411,6 +431,7 @@ const directory: { title: string; rows: [string, string?, string?][] }[] = [
       ["certifications"],
       ["contact"],
       ["resume"],
+      ["case-study", "[round]"],
     ],
   },
   {

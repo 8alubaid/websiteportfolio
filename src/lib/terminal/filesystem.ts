@@ -11,6 +11,7 @@ import { profile, projects, resumeUrl, skillGroups } from "@/data";
 import type { Block } from "./types";
 import {
   aboutView,
+  caseStudyView,
   certificationsView,
   contactView,
   educationView,
@@ -49,6 +50,7 @@ function buildHome(): DirNode {
     file("about.txt", aboutView, "/#top"),
     file("experience.log", experienceView, "/#experience"),
     file("contact.txt", contactView, "/#contact"),
+    file("case-study.md", () => caseStudyView() ?? [], "/case-study/"),
     {
       kind: "dir",
       name: "projects",

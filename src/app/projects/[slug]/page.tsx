@@ -145,7 +145,7 @@ async function ProjectContent({ params }: Pick<PageProps<"/projects/[slug]">, "p
     <article className="px-5 pb-16 sm:px-10 lg:px-16">
       <FocusProject slug={project.slug} />
       <div className="mx-auto max-w-[90rem]">
-        <nav aria-label="Breadcrumb" className="pt-6 font-mono text-xs">
+        <nav aria-label="Breadcrumb" className="pr-44 pt-6 font-mono text-xs">
           <ol className="flex flex-wrap items-center gap-3">
             <li>
               <Link href="/" className="underline-offset-4 hover:underline">

@@ -15,6 +15,7 @@ import {
   sectors,
   skillGroups,
 } from "@/data";
+import { caveats, criteria, pairs, sites, stats, takeaways } from "@/data/case-study";
 import type { Project, SectorId } from "@/types/portfolio";
 import type { Action, Block, Span } from "./types";
 
@@ -245,3 +246,62 @@ export function resumeView(): Block[] {
     { type: "line", spans: [{ text: "Résumé ready: ", tone: "strong" }, { text: "open PDF ↗", href: resumeUrl, external: true }] },
   ];
 }
+
+const mark = (on: boolean) => (on ? "■" : "□");
+
+/** `case-study` with no argument: the numbers, the rounds, and the takeaways. With a round id: that round in full. */
+export function caseStudyView(roundId?: string): Block[] | undefined {
+  const [weak, strong] = sites;
+  const footer: Block = {
+    type: "actions",
+    actions: [
+      { label: "Read in Portfolio", href: "/case-study/" },
+      { label: "Design comparison", href: "/compare/" },
+      { label: weak.name, href: weak.url, external: true },
+    ],
+  };
+
+  if (roundId) {
+    const index = pairs.findIndex((p) => p.id === roundId.toLowerCase());
+    if (index < 0) return undefined;
+    const p = pairs[index];
+    return [
+      { type: "heading", text: `ROUND ${String(index + 1).padStart(2, "0")} · ${p.title.toUpperCase()}`, meta: p.task },
+      { type: "section", text: `${weak.label} · ${p.weak.date}` },
+      { type: "paragraph", text: p.weak.quote },
+      { type: "line", spans: [{ text: "→ ", tone: "muted" }, { text: p.weak.outcome, tone: "muted" }] },
+      { type: "section", text: `${strong.label} · ${p.strong.date} · excerpts` },
+      { type: "list", bullet: ">", items: p.strong.excerpts.map((e) => [e]) },
+      { type: "line", spans: [{ text: "→ ", tone: "muted" }, { text: p.strong.outcome, tone: "muted" }] },
+      { type: "section", text: "Criteria (weaker / stronger)" },
+      {
+        type: "rows",
+        rows: criteria.map((c) => ({
+          key: [{ text: c.label, tone: "muted" }],
+          value: [`${mark(p.scores[c.id][0])}  ${mark(p.scores[c.id][1])}`],
+        })),
+      },
+      footer,
+    ];
+  }
+
+  return [
+    { type: "heading", text: "CASE STUDY · STRONG VS WEAK PROMPTS", meta: `${weak.name} (${weak.period}) vs this site (${strong.period})` },
+    text("Two portfolio sites built with Claude by the same person: one from short, open-ended prompts, one from detailed briefs."),
+    { type: "section", text: "The numbers (weaker / stronger)" },
+    { type: "rows", rows: stats.map((s) => kv(s.label, [{ text: `${s.weak}  /  ${s.strong}`, tone: "strong" }])) },
+    { type: "section", text: "Rounds" },
+    {
+      type: "rows",
+      rows: pairs.map((p) => ({
+        key: [{ text: p.id, command: `case-study ${p.id}`, tone: "strong" }],
+        value: [p.title],
+      })),
+    },
+    { type: "section", text: "Takeaways" },
+    { type: "list", items: takeaways.map((t) => [{ text: t.title, bold: true }, { text: ": ", tone: "muted" }, t.body]) },
+    { type: "paragraph", tone: "muted", text: caveats },
+    footer,
+  ];
+}
+

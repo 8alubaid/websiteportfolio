@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { projects } from "@/data";
+import { criteria, designComparison, pairs, stats } from "@/data/case-study";
 import { complete } from "./autocomplete";
 import { commands } from "./commands";
 import { execute } from "./engine";
@@ -251,6 +252,53 @@ describe("commands", () => {
       const out = textOf(execute(attempt, ctx()).result.blocks);
       expect(out).not.toMatch(/process\.env|NEXT_PUBLIC/);
     }
+  });
+});
+
+describe("case study", () => {
+  it("summarises the numbers and lists every round", () => {
+    const out = shell("case-study").out;
+    for (const s of stats) {
+      expect(out).toContain(s.label);
+      expect(out).toContain(`${s.weak}  /  ${s.strong}`);
+    }
+    for (const p of pairs) expect(out).toContain(`"command":"case-study ${p.id}"`);
+  });
+
+  it("shows a round with the weaker prompt quoted in full and every excerpt", () => {
+    for (const p of pairs) {
+      const out = shell(`case-study ${p.id}`).out;
+      expect(out).toContain(JSON.stringify(p.weak.quote).slice(1, -1));
+      for (const e of p.strong.excerpts) expect(out).toContain(JSON.stringify(e).slice(1, -1));
+    }
+  });
+
+  it("scores every round on all six criteria", () => {
+    for (const p of pairs) expect(Object.keys(p.scores).sort()).toEqual(criteria.map((c) => c.id).sort());
+  });
+
+  it("works through aliases, the file, and completion", () => {
+    const summary = shell("case-study").out;
+    expect(shell("prompts").out).toBe(summary);
+    expect(shell("compare").out).toBe(summary);
+    expect(shell("cat case-study.md").out).toBe(summary);
+    expect(shell("ls").out).toContain('"case-study.md"');
+    expect(complete("case-study ki", ctx()).value).toBe("case-study kickoff ");
+  });
+
+  it("links the design comparison from the terminal", () => {
+    expect(execute("open compare", ctx()).result.effects?.[0]).toMatchObject({ href: "/compare/" });
+    expect(shell("case-study").out).toContain('"href":"/compare/"');
+  });
+
+  it("has the full design comparison data", () => {
+    expect(designComparison.weakTrail).toHaveLength(7);
+    expect(designComparison.strongBrief.outline).toHaveLength(12);
+    for (const p of designComparison.weakTrail) expect(p.text.length).toBeGreaterThan(0);
+  });
+
+  it("errors on an unknown round", () => {
+    expect(shell("case-study nope").result.blocks[0].type).toBe("error");
   });
 });
 

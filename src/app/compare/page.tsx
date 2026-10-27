@@ -4,6 +4,7 @@ import { ogImage, profile } from "@/data";
 import { designComparison, sites } from "@/data/case-study";
 import { PixelReveal } from "@/components/pixel/PixelReveal";
 import { SplitCompare } from "@/components/portfolio/SplitCompare";
+import "@/styles/legacy-farisbalubaid.css";
 import oldDesktop from "@/assets/compare/old-desktop.webp";
 import newDesktop from "@/assets/compare/new-desktop.webp";
 import oldMobile from "@/assets/compare/old-mobile.webp";
@@ -82,22 +83,28 @@ export default function ComparePage() {
         </section>
 
         <div className="mt-24 grid gap-16 lg:grid-cols-2 lg:gap-0">
-          {/* Left: the weak prompts, as scattered as they were. */}
-          <section aria-labelledby="weak-title" className="lg:border-r lg:border-surface lg:pr-12">
-            <p className="pixel-label">{weak.label}</p>
-            <h2 id="weak-title" className="mt-4 text-3xl font-semibold tracking-tight">
+          {/* Left: the weak prompts, scattered as they were, dressed in the old site's own design system. */}
+          <section aria-labelledby="weak-title" className="legacy-site p-6 sm:p-10 lg:mr-12">
+            <p className="legacy-label">{weak.label}</p>
+            <h2 id="weak-title" className="legacy-h2">
               {weakSummary}
             </h2>
-            <p className="mt-3">The prompts behind the left half, in the order they were sent. Each one changed direction a little.</p>
+            <p className="legacy-muted mt-4">
+              The prompts behind the left half, in the order they were sent, styled like {weak.name} itself. Each one changed direction a little.
+            </p>
             <ol className="mt-10 pb-4">
               {weakTrail.map((p, i) => (
                 <li
                   key={p.text}
-                  className={`relative max-w-md border border-fg bg-bg px-4 pb-7 pt-4 ${tilt[i % tilt.length]} ${nudge[i % nudge.length]} ${i > 0 ? "-mt-4" : ""}`}
-                  style={{ zIndex: i + 1 }}
+                  className={`legacy-card relative max-w-md ${tilt[i % tilt.length]} ${nudge[i % nudge.length]} ${i > 0 ? "-mt-5" : ""}`}
+                  // Inline so it beats the legacy stylesheet's padding: the overlap only ever covers empty space.
+                  style={{ zIndex: i + 1, paddingBottom: "3.25rem" }}
                 >
-                  <p className="font-mono text-[0.65rem] uppercase tracking-[0.12em]">{p.date}</p>
-                  <p className="mt-2 text-sm leading-relaxed">“{p.text}”</p>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="legacy-tag">Prompt {String(i + 1).padStart(2, "0")}</span>
+                    <span className="legacy-date">{p.date}</span>
+                  </div>
+                  <p className="mt-3 text-[0.95rem] leading-relaxed">“{p.text}”</p>
                 </li>
               ))}
             </ol>

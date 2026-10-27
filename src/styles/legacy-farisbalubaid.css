@@ -1,0 +1,90 @@
+/*
+ * A faithful excerpt of farisbalubaid.cloud's own design system, used ONLY on /compare/
+ * to present the weaker prompts in the style of the site they produced.
+ *
+ * Values copied from that site's source (C:\dev\Website\css\base.css and home.css).
+ * This file is the single, deliberate exception to the three-color rule: the
+ * design-token test allows it, and only with this exact palette.
+ */
+.legacy-site {
+  --legacy-bg: #09090f;
+  --legacy-surface: #111118;
+  --legacy-border: #1e1e2e;
+  --legacy-accent: #d6b840;
+  --legacy-accent2: #f0e2a0;
+  --legacy-accent-rgb: 214, 184, 64;
+  --legacy-text: #e2e2f0;
+  --legacy-muted: #8a8aa8;
+  --legacy-radius: 12px;
+
+  background: var(--legacy-bg);
+  color: var(--legacy-text);
+  font-family: var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.65;
+  font-optical-sizing: auto;
+  border-radius: var(--legacy-radius);
+}
+
+/* .section-label */
+.legacy-site .legacy-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--legacy-accent);
+  margin-bottom: 0.6rem;
+}
+
+/* h2 */
+.legacy-site .legacy-h2 {
+  font-family: inherit;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.legacy-site .legacy-muted {
+  color: var(--legacy-muted);
+}
+
+/* a.project-card */
+.legacy-site .legacy-card {
+  background: var(--legacy-surface);
+  border: 1px solid var(--legacy-border);
+  border-radius: var(--legacy-radius);
+  padding: 1.8rem;
+  transition:
+    transform 0.3s ease,
+    border-color 0.25s;
+}
+.legacy-site .legacy-card:hover {
+  border-color: var(--legacy-muted);
+  transform: translateY(-2px);
+}
+
+/* .exp-date */
+.legacy-site .legacy-date {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--legacy-muted);
+  letter-spacing: 0.01em;
+}
+
+/* .tag */
+.legacy-site .legacy-tag {
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--legacy-accent2);
+  background: rgba(var(--legacy-accent-rgb), 0.1);
+  border: 1px solid rgba(var(--legacy-accent-rgb), 0.2);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  letter-spacing: 0.01em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .legacy-site .legacy-card,
+  .legacy-site .legacy-card:hover {
+    transition: none;
+    transform: none;
+  }
+}

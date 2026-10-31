@@ -46,7 +46,7 @@ export function SplitCompare({
             type="button"
             aria-pressed={v.id === viewId}
             onClick={() => setViewId(v.id)}
-            className={cn("px-3 py-1.5 uppercase tracking-[0.12em]", v.id === viewId ? "inverse" : "hover:bg-surface")}
+            className={cn("px-3 py-1.5 uppercase tracking-[0.12em]", v.id === viewId ? "inverse" : "hover:bg-surface hover:text-on-surface")}
           >
             {v.label}
           </button>

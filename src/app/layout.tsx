@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Inter_Tight, JetBrains_Mono, Silkscreen } from "next/font/google";
 import { ogImage, profile, site } from "@/data";
 import { ModeSwitch } from "@/components/layout/ModeSwitch";
+import { THEME_COLOR, themeBootScript } from "@/lib/theme-boot";
 import "./globals.css";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
@@ -37,13 +38,24 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0b0b",
-  colorScheme: "dark",
+  // The boot script and theme store keep this in step with the active theme.
+  themeColor: THEME_COLOR.dark,
+  colorScheme: "dark light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${inter.variable} ${interTight.variable} ${jetbrains.variable} ${silkscreen.variable} antialiased`}>
+    // suppressHydrationWarning: the boot script sets data-theme before React hydrates.
+    <html
+      lang="en"
+      data-theme="dark"
+      data-scroll-behavior="smooth"
+      className={`${inter.variable} ${interTight.variable} ${jetbrains.variable} ${silkscreen.variable} antialiased`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
       {/* suppressHydrationWarning: browser extensions (e.g. Grammarly) inject attributes into <body>. */}
       <body className="min-h-dvh" suppressHydrationWarning>
         <a href="#main" className="sr-only-focusable inverse fixed left-3 top-3 z-[60] px-3 py-2 font-mono text-xs">

@@ -60,7 +60,7 @@ export function CaseStudyTeaser() {
           I built two portfolio sites with Claude: <a href={sites[0].url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:no-underline">{sites[0].name}</a> from
           short, open-ended prompts, and this one from detailed briefs. The case study puts the actual prompts side by side and shows what each one led to.
         </p>
-        <Link href="/case-study/" className="inverse mt-8 inline-block px-4 py-2.5 font-mono text-sm transition-colors hover:bg-surface hover:text-fg">
+        <Link href="/case-study/" className="inverse mt-8 inline-block px-4 py-2.5 font-mono text-sm transition-colors hover:bg-surface hover:text-on-surface">
           Read the case study →
         </Link>
         <Link href="/compare/" className="ml-6 mt-8 inline-block font-mono text-sm underline underline-offset-4 hover:no-underline">

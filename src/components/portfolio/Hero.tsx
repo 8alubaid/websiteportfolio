@@ -28,7 +28,7 @@ export function Hero() {
             <p className="mt-10 max-w-xl text-lg leading-relaxed">{profile.tagline}</p>
 
             <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 font-mono text-sm">
-              <Link href="#projects" className="inverse px-4 py-2.5 transition-colors hover:bg-surface hover:text-fg">
+              <Link href="#projects" className="inverse px-4 py-2.5 transition-colors hover:bg-surface hover:text-on-surface">
                 View projects ↓
               </Link>
               <Link href="/terminal" className="underline decoration-surface decoration-2 underline-offset-[6px] hover:decoration-fg">

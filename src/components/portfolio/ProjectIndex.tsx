@@ -53,7 +53,7 @@ function Preview({ project }: { project: Project }) {
       )}
 
       <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 font-mono text-sm">
-        <Link href={`/projects/${project.slug}`} className="inverse px-4 py-2.5 transition-colors hover:bg-surface hover:text-fg">
+        <Link href={`/projects/${project.slug}`} className="inverse px-4 py-2.5 transition-colors hover:bg-surface hover:text-on-surface">
           Open project →
         </Link>
         <Link
@@ -93,7 +93,7 @@ export function ProjectIndexView({ filter = "all", onFilter }: { filter?: Filter
               aria-pressed={filter === f.id}
               disabled={!onFilter}
               onClick={() => onFilter?.(f.id)}
-              className={cn("px-3 py-1.5 uppercase tracking-[0.12em]", filter === f.id ? "inverse" : "hover:bg-surface")}
+              className={cn("px-3 py-1.5 uppercase tracking-[0.12em]", filter === f.id ? "inverse" : "hover:bg-surface hover:text-on-surface")}
             >
               {f.label} {pad(f.count)}
             </button>

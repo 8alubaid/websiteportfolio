@@ -59,7 +59,7 @@ export function BriefTabs({ tabs }: { tabs: Tab[] }) {
             onClick={() => select(i)}
             className={cn(
               "px-4 py-3 text-left transition-colors",
-              active === i ? "inverse" : "hover:bg-surface",
+              active === i ? "inverse" : "hover:bg-surface hover:text-on-surface",
             )}
           >
             <span className="mr-2 font-mono text-xs">{String(i + 1).padStart(2, "0")}</span>

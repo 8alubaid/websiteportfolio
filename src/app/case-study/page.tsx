@@ -18,7 +18,7 @@ export default function CaseStudyPage() {
   return (
     <article className="px-5 pb-16 sm:px-10 lg:px-16">
       <div className="mx-auto max-w-[90rem]">
-        <nav aria-label="Breadcrumb" className="pr-44 pt-6 font-mono text-xs">
+        <nav aria-label="Breadcrumb" className="pr-52 pt-6 font-mono text-xs">
           <ol className="flex flex-wrap items-center gap-3">
             <li>
               <Link href="/" className="underline-offset-4 hover:underline">
@@ -53,7 +53,7 @@ export default function CaseStudyPage() {
         </div>
 
         <nav aria-label="More" className="mt-28 flex flex-wrap gap-x-8 gap-y-3 border-t border-fg pt-8 font-mono text-sm">
-          <Link href="/" className="inverse px-4 py-2.5 hover:bg-surface hover:text-fg">
+          <Link href="/" className="inverse px-4 py-2.5 hover:bg-surface hover:text-on-surface">
             ← Back to portfolio
           </Link>
           <Link href="/compare/" className="self-center underline underline-offset-4 hover:no-underline">

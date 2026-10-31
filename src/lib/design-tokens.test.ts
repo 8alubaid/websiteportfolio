@@ -24,8 +24,11 @@ function files(dir: string): string[] {
 const LEGACY_FILE = join("styles", "legacy-farisbalubaid.css");
 const LEGACY_HEX = new Set(["09090f", "111118", "1e1e2e", "d6b840", "f0e2a0", "e2e2f0", "8a8aa8"]);
 
+/** The favicon is the owner's own pixel artwork, in its own colors; it never styles the page. */
+const ICON_FILE = join("app", "icon.svg");
+
 const all = files(ROOT).map((path) => ({ path: relative(ROOT, path), text: readFileSync(path, "utf8") }));
-const sources = all.filter((s) => s.path !== LEGACY_FILE);
+const sources = all.filter((s) => s.path !== LEGACY_FILE && s.path !== ICON_FILE);
 const legacy = all.find((s) => s.path === LEGACY_FILE);
 
 // Tailwind's default palette plus the retired space-theme tokens.

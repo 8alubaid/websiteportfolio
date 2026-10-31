@@ -1,15 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Inter_Tight, JetBrains_Mono, Silkscreen } from "next/font/google";
+import { Fragment_Mono, Inter, Inter_Tight, Silkscreen } from "next/font/google";
 import { ogImage, profile, site } from "@/data";
-import { ModeSwitch } from "@/components/layout/ModeSwitch";
+import { InlineScript } from "@/components/layout/InlineScript";
+import { SiteHeader } from "@/components/layout/SiteHeader";
 import { THEME_COLOR, themeBootScript } from "@/lib/theme-boot";
 import "./globals.css";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
+// Interface typeface: monospaced, used for nearly all text. Swap it here and in globals.css (--font-mono).
+const fragmentMono = Fragment_Mono({ variable: "--font-fragment-mono", weight: "400", subsets: ["latin"], display: "swap" });
+// Display face for the name and page titles, set light.
 const interTight = Inter_Tight({ variable: "--font-inter-tight", subsets: ["latin"], display: "swap" });
+// Only the /compare/ page's recreation of the old site uses Inter.
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 // Pixel face: decorative, short labels only.
 const silkscreen = Silkscreen({ variable: "--font-silkscreen", weight: "400", subsets: ["latin"], display: "swap" });
-const jetbrains = JetBrains_Mono({ variable: "--font-jetbrains", subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -50,18 +54,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       data-theme="dark"
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${interTight.variable} ${jetbrains.variable} ${silkscreen.variable} antialiased`}
+      className={`${fragmentMono.variable} ${interTight.variable} ${inter.variable} ${silkscreen.variable} antialiased`}
       suppressHydrationWarning
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+        <InlineScript html={themeBootScript} />
       </head>
       {/* suppressHydrationWarning: browser extensions (e.g. Grammarly) inject attributes into <body>. */}
       <body className="min-h-dvh" suppressHydrationWarning>
-        <a href="#main" className="sr-only-focusable inverse fixed left-3 top-3 z-[60] px-3 py-2 font-mono text-xs">
+        <a href="#main" className="sr-only-focusable inverse fixed left-3 top-3 z-[60] px-3 py-2 text-meta">
           Skip to content
         </a>
-        <ModeSwitch />
+        <SiteHeader />
         <main id="main">{children}</main>
       </body>
     </html>

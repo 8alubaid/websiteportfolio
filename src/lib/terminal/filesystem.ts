@@ -47,14 +47,14 @@ const file = (name: string, view: () => Block[], href?: string): FileNode => ({ 
 
 function buildHome(): DirNode {
   const children: FsNode[] = [
-    file("about.txt", aboutView, "/#top"),
-    file("experience.log", experienceView, "/#experience"),
-    file("contact.txt", contactView, "/#contact"),
+    file("about.txt", aboutView, "/"),
+    file("experience.log", experienceView, "/experience/"),
+    file("contact.txt", contactView, "/"),
     file("case-study.md", () => caseStudyView() ?? [], "/case-study/"),
     {
       kind: "dir",
       name: "projects",
-      href: "/#projects",
+      href: "/projects/",
       children: projects.map(
         (p): DirNode => ({
           kind: "dir",
@@ -72,16 +72,16 @@ function buildHome(): DirNode {
     {
       kind: "dir",
       name: "skills",
-      href: "/#skills",
-      children: skillGroups.map((g) => file(`${g.id}.txt`, () => skillsView(g.id), "/#skills")),
+      href: "/experience/#skills",
+      children: skillGroups.map((g) => file(`${g.id}.txt`, () => skillsView(g.id), "/experience/#skills")),
     },
     {
       kind: "dir",
       name: "credentials",
-      href: "/#certifications",
+      href: "/certifications/",
       children: [
-        file("education.txt", educationView, "/#certifications"),
-        file("certifications.txt", certificationsView, "/#certifications"),
+        file("education.txt", educationView, "/certifications/#education"),
+        file("certifications.txt", certificationsView, "/certifications/"),
       ],
     },
   ];

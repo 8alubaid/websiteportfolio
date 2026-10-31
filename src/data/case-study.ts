@@ -30,8 +30,9 @@ export interface SiteSummary {
 export const sites: [SiteSummary, SiteSummary] = [
   {
     label: "Weaker prompts",
-    name: "farisbalubaid.cloud",
-    url: "https://farisbalubaid.cloud",
+    // Served at farisbalubaid.cloud until that domain moved to this site; it now lives on its repo's Pages URL.
+    name: "Old portfolio",
+    url: "https://8alubaid.github.io/Portfolio/",
     session: "Personal Website",
     period: "25 Aug – 8 Oct 2026",
   },

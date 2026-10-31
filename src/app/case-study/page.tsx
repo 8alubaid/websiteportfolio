@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ogImage, profile } from "@/data";
+import { pageContainer } from "@/lib/layout";
+import { ogImage } from "@/data";
 import { CaseStudy } from "@/components/portfolio/CaseStudy";
 import { PixelReveal } from "@/components/pixel/PixelReveal";
 
@@ -16,34 +17,22 @@ export const metadata: Metadata = {
 
 export default function CaseStudyPage() {
   return (
-    <article className="px-5 pb-16 sm:px-10 lg:px-16">
-      <div className="mx-auto max-w-[90rem]">
-        <nav aria-label="Breadcrumb" className="pr-52 pt-6 font-mono text-xs">
-          <ol className="flex flex-wrap items-center gap-3">
-            <li>
-              <Link href="/" className="underline-offset-4 hover:underline">
-                {profile.name}
-              </Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li>
-              <Link href="/#case-study" className="underline-offset-4 hover:underline">
-                Case study
-              </Link>
-            </li>
-          </ol>
-        </nav>
+    <article className="pb-28 pt-12 md:pt-16">
+      <div className={pageContainer}>
+        <Link href="/writing/" className="text-meta text-muted transition-colors duration-200 hover:text-fg">
+          ← writing
+        </Link>
 
-        <header className="mt-20 border-b border-fg pb-14 lg:mt-28">
+        <header className="mt-10 border-b border-rule pb-12">
           <p className="pixel-label">Case study</p>
-          <h1 className="mt-6 max-w-5xl font-display text-[clamp(2.8rem,8vw,6.5rem)] font-semibold leading-[0.92] tracking-[-0.045em]">
+          <h1 className="mt-6 max-w-5xl font-display text-[clamp(2rem,4.5vw,2.75rem)] font-light leading-[1.1] tracking-[-0.02em]">
             <PixelReveal cell={18}>Strong vs weak prompts</PixelReveal>
           </h1>
-          <p className="mt-8 max-w-3xl animate-pixel-wipe text-xl leading-relaxed">
+          <p className="mt-8 max-w-3xl animate-pixel-wipe">
             I built two portfolio sites with Claude. One came from short, open-ended prompts, the other from detailed briefs. Same person, same kind of
             project, very different instructions. Here are the actual prompts, quoted word for word, and what each one led to.
           </p>
-          <Link href="/compare/" className="mt-8 inline-block font-mono text-sm underline underline-offset-4 hover:no-underline">
+          <Link href="/compare/" className="mt-8 inline-block text-link text-meta">
             Compare the two designs side by side →
           </Link>
         </header>
@@ -52,14 +41,14 @@ export default function CaseStudyPage() {
           <CaseStudy />
         </div>
 
-        <nav aria-label="More" className="mt-28 flex flex-wrap gap-x-8 gap-y-3 border-t border-fg pt-8 font-mono text-sm">
-          <Link href="/" className="inverse px-4 py-2.5 hover:bg-surface hover:text-on-surface">
-            ← Back to portfolio
+        <nav aria-label="More" className="mt-28 flex flex-wrap gap-x-8 gap-y-3 border-t border-rule pt-8 text-meta">
+          <Link href="/writing/" className="text-link">
+            ← All writing
           </Link>
-          <Link href="/compare/" className="self-center underline underline-offset-4 hover:no-underline">
+          <Link href="/compare/" className="text-link">
             See the designs side by side →
           </Link>
-          <Link href="/terminal?run=case-study" className="self-center underline underline-offset-4 hover:no-underline">
+          <Link href="/terminal?run=case-study" className="text-link">
             View in terminal →
           </Link>
         </nav>

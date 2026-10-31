@@ -23,7 +23,11 @@ function readTheme(): Theme {
 }
 
 function applyTheme(theme: Theme) {
-  document.documentElement.setAttribute("data-theme", theme);
+  const root = document.documentElement;
+  // Hover/color transitions would otherwise ease every link between the two themes.
+  root.classList.add("theme-switching");
+  requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove("theme-switching")));
+  root.setAttribute("data-theme", theme);
   document.querySelector('meta[name="theme-color"]')?.setAttribute("content", THEME_COLOR[theme]);
   listeners.forEach((l) => l());
 }

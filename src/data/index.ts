@@ -4,4 +4,7 @@ export { projects, projectBySlug, getProject, projectNumber } from "./projects";
 export { skillGroups } from "./skills";
 export { timeline, logKindLabel } from "./experience";
 export { education, certifications } from "./credentials";
-export { site, ogImage } from "./site";
+export { writing } from "./writing";
+export { videos } from "./videos";
+export { reading } from "./reading";
+export { site, ogImage, navigation } from "./site";

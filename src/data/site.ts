@@ -4,7 +4,7 @@ import { profile } from "./profile";
 export const site = {
   name: profile.name,
   shortName: profile.name,
-  description: `${profile.name}, ${profile.headline}. Cloud, AI, software, and embedded systems projects, explorable visually or through an interactive terminal.`,
+  description: `${profile.name}, ${profile.headline}. Cloud, AI, software, and embedded systems projects, writing, and certifications, with an interactive terminal version of the site.`,
   // Set by the GitHub Pages workflow (full URL, including any repository sub-path).
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, ""),
   hostname: "portfolio",
@@ -17,14 +17,13 @@ export const site = {
  */
 export const ogImage = { url: "/og.png", width: 1200, height: 630, alt: `${profile.name}, ${profile.headline}` };
 
-export const sections = [
-  { id: "about", label: "About" },
-  { id: "projects", label: "Projects" },
-  { id: "case-study", label: "Case Study" },
-  { id: "experience", label: "Experience" },
-  { id: "skills", label: "Skills" },
-  { id: "certifications", label: "Education & Certifications" },
-  { id: "contact", label: "Contact" },
+/** The seven sections in the top navigation, in order. */
+export const navigation = [
+  { href: "/", label: "home" },
+  { href: "/projects/", label: "projects" },
+  { href: "/experience/", label: "experience" },
+  { href: "/writing/", label: "writing" },
+  { href: "/videos/", label: "videos" },
+  { href: "/reading/", label: "reading" },
+  { href: "/certifications/", label: "certifications" },
 ] as const;
-
-export type SectionId = (typeof sections)[number]["id"];

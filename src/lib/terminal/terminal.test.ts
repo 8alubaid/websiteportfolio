@@ -231,7 +231,7 @@ describe("commands", () => {
 
   it("open resolves projects, sections and paths", () => {
     expect(execute("open stm32-tetris", ctx()).result.effects?.[0]).toMatchObject({ href: "/projects/stm32-tetris" });
-    expect(execute("open skills", ctx()).result.effects?.[0]).toMatchObject({ href: "/#skills" });
+    expect(execute("open skills", ctx()).result.effects?.[0]).toMatchObject({ href: "/experience/#skills" });
     expect(execute("open", ctx({ cwd: `${P}/computer-vision` })).result.effects?.[0]).toMatchObject({
       href: "/projects/computer-vision",
     });

@@ -54,7 +54,7 @@ export function SplitCompare({
       </div>
 
       <figure className={cn("mx-auto", view.id === "phone" ? "max-w-[390px]" : "max-w-none")}>
-        <div className="relative select-none overflow-hidden border border-surface">
+        <div className="relative select-none overflow-hidden border border-rule">
           {/* Before: full frame underneath. */}
           <Image src={view.before.src} alt={view.before.alt} className="block h-auto w-full" priority sizes="(max-width: 1440px) 100vw, 1440px" />
           {/* After: same frame on top, clipped to the right of the divider. */}

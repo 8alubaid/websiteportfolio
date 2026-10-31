@@ -1,21 +1,20 @@
 import Link from "next/link";
+import { pageContainer } from "@/lib/layout";
 
 export default function NotFound() {
   return (
-    <section className="flex min-h-[100svh] flex-col justify-center px-5 sm:px-10 lg:px-16">
-      <div className="mx-auto w-full max-w-[90rem]">
-        <p className="pixel-label">Error 404</p>
-        <h1 className="mt-6 font-display text-[clamp(3rem,8vw,6.5rem)] font-semibold leading-[0.92] tracking-[-0.04em]">Page not found.</h1>
-        <p className="mt-8">The page you were looking for doesn&apos;t exist or has moved.</p>
-        <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 font-mono text-sm">
-          <Link href="/" className="inverse px-4 py-2.5 hover:bg-surface hover:text-on-surface">
-            ← Back to portfolio
-          </Link>
-          <Link href="/terminal" className="underline underline-offset-4 hover:no-underline">
-            Open terminal →
-          </Link>
-        </div>
-      </div>
+    <section className={`${pageContainer} pb-28 pt-24 md:pt-32`}>
+      <p className="text-meta text-muted">404</p>
+      <h1 className="mt-4 font-display text-heading font-light tracking-[-0.01em]">Page not found.</h1>
+      <p className="mt-4 text-muted">The page you were looking for doesn&apos;t exist or has moved.</p>
+      <p className="mt-8 flex flex-wrap gap-x-8 gap-y-2">
+        <Link href="/" className="text-link">
+          ← home
+        </Link>
+        <Link href="/terminal/" className="text-link">
+          open the terminal →
+        </Link>
+      </p>
     </section>
   );
 }

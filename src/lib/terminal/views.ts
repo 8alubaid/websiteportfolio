@@ -218,7 +218,7 @@ export function contactView(): Block[] {
     { type: "heading", text: "CONTACT" },
     text(profile.availability),
     rows.length ? { type: "rows", rows } : { type: "paragraph", text: "Contact links are being updated.", tone: "muted" },
-    { type: "actions", actions: [{ label: "Open in Portfolio", href: "/#contact" }] },
+    { type: "actions", actions: [{ label: "Open in Portfolio", href: "/" }] },
   ];
 }
 

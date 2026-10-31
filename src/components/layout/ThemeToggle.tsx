@@ -48,8 +48,7 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       aria-label={label}
       title={label}
-      // Width matches the mode switch's height (text-xs line + py-1.5 + border); height stretches to it.
-      className="grid w-[1.875rem] place-items-center border border-surface bg-bg transition-colors duration-150 hover:bg-surface hover:text-on-surface"
+      className="grid size-8 place-items-center text-muted transition-colors duration-200 hover:text-fg"
     >
       <PixelIcon rows={theme === "dark" ? SUN : MOON} />
     </button>

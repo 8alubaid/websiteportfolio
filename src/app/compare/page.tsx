@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ogImage, profile } from "@/data";
+import { pageContainer } from "@/lib/layout";
+import { ogImage } from "@/data";
 import { designComparison, sites } from "@/data/case-study";
 import { PixelReveal } from "@/components/pixel/PixelReveal";
 import { SplitCompare } from "@/components/portfolio/SplitCompare";
@@ -29,33 +30,19 @@ export default function ComparePage() {
   const [weak, strong] = sites;
 
   return (
-    <article className="px-5 pb-16 sm:px-10 lg:px-16">
-      <div className="mx-auto max-w-[90rem]">
-        <nav aria-label="Breadcrumb" className="pr-52 pt-6 font-mono text-xs">
-          <ol className="flex flex-wrap items-center gap-3">
-            <li>
-              <Link href="/" className="underline-offset-4 hover:underline">
-                {profile.name}
-              </Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li>
-              <Link href="/case-study/" className="underline-offset-4 hover:underline">
-                Case study
-              </Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li aria-current="page">Design</li>
-          </ol>
-        </nav>
+    <article className="pb-28 pt-12 md:pt-16">
+      <div className={pageContainer}>
+        <Link href="/writing/" className="text-meta text-muted transition-colors duration-200 hover:text-fg">
+          ← writing
+        </Link>
 
-        <header className="mt-20 lg:mt-28">
+        <header className="mt-10">
           <p className="pixel-label">Design comparison</p>
-          <h1 className="mt-6 max-w-5xl font-display text-[clamp(2.8rem,8vw,6.5rem)] font-semibold leading-[0.92] tracking-[-0.045em]">
+          <h1 className="mt-6 max-w-5xl font-display text-[clamp(2rem,4.5vw,2.75rem)] font-light leading-[1.1] tracking-[-0.02em]">
             <PixelReveal cell={18}>Same person. Two prompts.</PixelReveal>
           </h1>
-          <p className="mt-8 max-w-3xl text-xl leading-relaxed">
-            Both homepages, cut in half. On the left, {weak.name}, shaped by short prompts sent over six weeks. On the right, this site, shaped by one
+          <p className="mt-8 max-w-3xl">
+            Both homepages, cut in half. On the left, my old portfolio, shaped by short prompts sent over six weeks. On the right, this site, shaped by one
             detailed brief. Drag the divider to compare.
           </p>
         </header>
@@ -90,7 +77,7 @@ export default function ComparePage() {
               {weakSummary}
             </h2>
             <p className="legacy-muted mt-4">
-              The prompts behind the left half, in the order they were sent, styled like {weak.name} itself. Each one changed direction a little.
+              The prompts behind the left half, in the order they were sent, styled like the old portfolio itself. Each one changed direction a little.
             </p>
             <ol className="mt-10 pb-4">
               {weakTrail.map((p, i) => (
@@ -113,13 +100,13 @@ export default function ComparePage() {
           {/* Right: the strong brief, as structured as it was. */}
           <section aria-labelledby="strong-title" className="lg:pl-12">
             <p className="pixel-label">{strong.label}</p>
-            <h2 id="strong-title" className="mt-4 text-3xl font-semibold tracking-tight">
+            <h2 id="strong-title" className="mt-4 font-display text-heading font-light tracking-[-0.01em]">
               {strongBrief.summary}
             </h2>
             <p className="mt-3">The brief behind the right half, sent on {strongBrief.date}. Its section outline, word for word:</p>
             <div className="mt-10 border border-fg">
               <p className="inverse px-4 py-2 font-mono text-xs">{strongBrief.title}</p>
-              <ol className="divide-y divide-surface font-mono text-sm">
+              <ol className="divide-y divide-rule font-mono text-sm">
                 {strongBrief.outline.map((h, i) => (
                   <li key={h} className="grid grid-cols-[2.5rem_1fr] px-4 py-2.5">
                     <span>{String(i + 1).padStart(2, "0")}</span>
@@ -131,7 +118,7 @@ export default function ComparePage() {
             <p className="eyebrow mt-10">Four lines from it</p>
             <ul className="mt-4 grid gap-3">
               {strongBrief.highlights.map((h) => (
-                <li key={h} className="border-l-2 border-fg pl-4 font-mono text-sm leading-relaxed">
+                <li key={h} className="border-l-2 border-fg pl-4 font-mono text-meta">
                   {h}
                 </li>
               ))}
@@ -139,20 +126,20 @@ export default function ComparePage() {
           </section>
         </div>
 
-        <p className="mt-20 max-w-3xl border-t border-surface pt-6 text-sm leading-relaxed">
+        <p className="mt-20 max-w-3xl border-t border-rule pt-6 text-meta">
           Screenshots captured {captured} with headless Chrome at 1440×900 (desktop) and 390×844 (phone), from{" "}
           <a href={weak.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:no-underline">
-            {weak.name}
+            the old portfolio
           </a>{" "}
-          and this site. {note}
+          (then at farisbalubaid.cloud) and this site. {note}
         </p>
 
-        <nav aria-label="More" className="mt-16 flex flex-wrap gap-x-8 gap-y-3 border-t border-fg pt-8 font-mono text-sm">
-          <Link href="/case-study/" className="inverse px-4 py-2.5 hover:bg-surface hover:text-on-surface">
+        <nav aria-label="More" className="mt-16 flex flex-wrap gap-x-8 gap-y-3 border-t border-rule pt-8 text-meta">
+          <Link href="/case-study/" className="text-link">
             ← Read the full case study
           </Link>
-          <Link href="/" className="self-center underline underline-offset-4 hover:no-underline">
-            Back to portfolio
+          <Link href="/writing/" className="text-link">
+            All writing
           </Link>
         </nav>
       </div>

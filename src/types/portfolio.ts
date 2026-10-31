@@ -33,6 +33,8 @@ export interface Profile {
   tagline: string;
   /** Paragraphs for the About section. */
   about: string[];
+  /** Short description under the name in the profile column. */
+  bio: string;
   location?: string;
   /** Discipline ids in display order. */
   focus: SectorId[];
@@ -141,4 +143,36 @@ export interface Certification {
   status: "earned" | "in-progress";
   /** Public verification URL (e.g. Credly), when available. */
   verifyUrl?: string;
+}
+
+export interface Article {
+  title: string;
+  description: string;
+  /** Site path (e.g. `/case-study/`) or a full URL for writing published elsewhere. */
+  href: string;
+  /** Display date, e.g. `26 Oct 2026`. */
+  date: string;
+  topic?: string;
+}
+
+export interface Video {
+  title: string;
+  description: string;
+  /** Full URL of the published video. */
+  href: string;
+  date: string;
+  /** Optional thumbnail under /public, e.g. `/videos/eks-walkthrough.webp`. */
+  thumbnail?: string;
+}
+
+export interface ReadingItem {
+  title: string;
+  /** Author, publisher, or site. */
+  source: string;
+  href?: string;
+  /** A short personal note on why it's worth reading. */
+  note?: string;
+  status?: "reading" | "finished";
+  date?: string;
+  kind?: "book" | "article" | "paper" | "resource";
 }
